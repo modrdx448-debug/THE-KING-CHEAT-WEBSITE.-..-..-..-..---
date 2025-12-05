@@ -1,112 +1,249 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<title>THE KING CHEAT OFC - USER</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>THE KING CHEAT OFC — User</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-  body {margin:0;background:#000;font-family:'Orbitron',sans-serif;color:#fff;text-align:center;overflow:hidden;}
-  .logo-container{position:relative;display:inline-block;margin-top:50px;z-index:2;}
-  .logo-circle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:180px;height:180px;border-radius:50%;border:4px solid red;z-index:2;}
-  .logo{width:150px;height:150px;border-radius:50%;object-fit:cover;box-shadow:0 0 20px red,0 0 40px red;position:relative;z-index:3;}
-  .title{font-size:36px;margin-top:20px;font-weight:bold;background:linear-gradient(90deg,#ff0000,#ff4d4d,#ff9999);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:3;}
-  .btn{display:block;width:80%;max-width:300px;margin:10px auto;padding:12px;font-size:18px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;background:red;color:#fff;box-shadow:0 0 15px red;transition:0.3s;position:relative;z-index:3;}
-  .btn:hover{box-shadow:0 0 20px red;}
-  .footer{margin:20px;font-size:12px;color:#fff;position:relative;z-index:3;}
-  .socials{margin-top:20px;display:flex;justify-content:center;gap:20px;z-index:3;position:relative;}
-  .socials a{text-decoration:none;color:#fff;font-weight:bold;padding:8px 12px;border:2px solid red;border-radius:10px;transition:0.3s;display:flex;align-items:center;gap:8px;font-size:14px;}
-  .socials a:hover{background:red;color:#fff;}
-  .socials img{width:20px;height:20px;}
-  #particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:#0b0b0b;
+    color:#fff;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+
+  /* HEADER 200PX */
+  .header{
+    height:200px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    z-index:3;
+  }
+  .logo{
+    width:120px;height:120px;border-radius:50%;object-fit:cover;
+    border:3px solid #00ffd5; box-shadow:0 0 20px #00ffd5;
+  }
+  .title{
+    margin-top:8px;font-size:22px;font-weight:700;
+    background:linear-gradient(90deg,#ff00ff,#00ff00,#00ccff);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+
+  /* MIDDLE AREA */
+  .middle{
+    height:calc(100vh - 300px); /* 200 header + 100 footer */
+    overflow:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+    padding:18px;
+    z-index:3;
+  }
+  .mid-btn{
+    width:200px;
+    padding:12px 18px;border-radius:10px;border:none;
+    background:linear-gradient(90deg,#ff8cff,#6fffdc);
+    color:#001; font-weight:700; cursor:pointer;
+  }
+
+  /* FOOTER FIXED CLEAN TRANSPARENT */
+  .footer{
+    height:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:transparent;  /* ← FIX */
+    border-top:1px solid rgba(255,255,255,0.04);
+    z-index:3;
+  }
+
+  .social-row{
+    display:flex;
+    gap:18px;
+    margin-bottom:8px;
+    align-items:center;
+    justify-content:center;
+  }
+  .social{
+    padding:8px 14px;border-radius:8px;border:none;
+    background:#00ffd5;color:#002;font-weight:700;cursor:pointer;
+  }
+  .footer-text{ font-weight:700; font-size:13px; opacity:0.9; }
+
+  /* Particle background */
+  canvas#particles{ position:fixed; left:0; top:0; width:100%; height:100%; z-index:0; display:block; }
 </style>
 </head>
 <body>
 
-<canvas id="particleCanvas"></canvas>
+<canvas id="particles"></canvas>
 
-<div class="logo-container">
-  <div class="logo-circle"></div>
-  <img src="https://i.supaimg.com/47f05d01-8673-49a2-9488-cfb90c34347b.jpg" class="logo">
-</div>
-<h1 class="title">THE KING CHEAT OFC</h1>
+<!-- HEADER -->
+<header class="header">
+  <img class="logo" id="logoImg" src="https://i.supaimg.com/47f05d01-8673-49a2-9488-cfb90c34347b.jpg" alt="logo">
+  <div class="title" id="userTitle">THE KING CHEAT OFC</div>
+</header>
 
-<!-- Buttons -->
-<button class="btn" id="apkBtn">THE KING CHEAT V167 APK</button>
-<button class="btn" id="xapkBtn">THE KING CHEAT V167 XAPK</button>
-<button class="btn" id="obbBtn">OBB 931</button>
-<button class="btn" id="genBtn">GENERATE KEY</button>
+<!-- MIDDLE AREA -->
+<main class="middle" id="middleArea"></main>
 
-<div class="footer">© 2025 THE KING CHEATS | All Rights Reserved</div>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="social-row">
+    <button id="tgBtn" class="social" style="display:none">Telegram</button>
+    <button id="ytBtn" class="social" style="display:none">YouTube</button>
+    <button id="igBtn" class="social" style="display:none">Instagram</button>
+  </div>
+  <div class="footer-text" id="footerText">@THE KING CHEAT OFC 2025-26</div>
+</footer>
 
-<!-- Social Links -->
-<div class="socials">
-  <a id="tgBtn" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png"> Telegram</a>
-  <a id="ytBtn" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"> YouTube</a>
-  <a id="instaBtn" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png"> Instagram</a>
-</div>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
 <script>
-  // Particle Animation
-  const canvas = document.getElementById('particleCanvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+const firebaseConfig = {
+  apiKey: "AIzaSyB_LaFUz-1QB_k4mEiODndjqdcYDbPFr2M",
+  authDomain: "config-v9.firebaseapp.com",
+  databaseURL: "https://config-v9-default-rtdb.firebaseio.com",
+  projectId: "config-v9",
+  storageBucket: "config-v9.appspot.com"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-  let particles = [];
-  const particleCount = 120;
-  for(let i=0;i<particleCount;i++){
-      particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*1.5,vy:(Math.random()-0.5)*1.5,size:Math.random()*3+1});
+/* Elements */
+const middleArea = document.getElementById('middleArea');
+const tgBtn = document.getElementById('tgBtn');
+const ytBtn = document.getElementById('ytBtn');
+const igBtn = document.getElementById('igBtn');
+const userTitle = document.getElementById('userTitle');
+const footerText = document.getElementById('footerText');
+
+/* Title */
+db.ref('userPanelTitle').on('value', snap=>{
+  userTitle.innerText = snap.val() || "THE KING CHEAT OFC";
+});
+
+/* Footer Buttons */
+db.ref('footerButtons').on('value', snap=>{
+  const d = snap.val() || {};
+
+  if(d.telegram){
+    tgBtn.style.display='inline-block';
+    tgBtn.onclick = ()=> window.open(d.telegram,'_blank');
+  } else tgBtn.style.display='none';
+
+  if(d.youtube){
+    ytBtn.style.display='inline-block';
+    ytBtn.onclick = ()=> window.open(d.youtube,'_blank');
+  } else ytBtn.style.display='none';
+
+  if(d.instagram){
+    igBtn.style.display='inline-block';
+    igBtn.onclick = ()=> window.open(d.instagram,'_blank');
+  } else igBtn.style.display='none';
+});
+
+/* Middle Buttons */
+db.ref('middleButtons').on('value', snap=>{
+  middleArea.innerHTML = '';
+  const obj = snap.val();
+  if(!obj) return;
+
+  Object.keys(obj).forEach(id=>{
+    const item = obj[id];
+    const b = document.createElement('button');
+    b.className = 'mid-btn';
+    b.innerText = item.name;
+    b.onclick = ()=> window.open(item.url,'_blank');
+    middleArea.appendChild(b);
+  });
+});
+
+/* Particles */
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let pColor="#00ffd5", bg="#0b0b0b", count=110, maxDist=110, speed=1.2;
+let parts=[];
+
+function resize(){ canvas.width=innerWidth; canvas.height=innerHeight; }
+window.addEventListener("resize",resize); resize();
+
+function init(){
+  parts=[];
+  for(let i=0;i<count;i++){
+    parts.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height,
+      r:Math.random()*2+1,
+      dx:(Math.random()-0.5)*speed,
+      dy:(Math.random()-0.5)*speed
+    })
   }
+}
 
-  function animate(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(let i=0;i<particles.length;i++){
-          const p=particles[i]; p.x+=p.vx; p.y+=p.vy;
-          if(p.x<0||p.x>canvas.width) p.vx*=-1;
-          if(p.y<0||p.y>canvas.height) p.vy*=-1;
-          ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fillStyle="red"; ctx.fill();
+db.ref("settings").on("value",snap=>{
+  const s=snap.val()||{};
+  pColor=s.particleColor||pColor;
+  bg=s.backgroundColor||bg;
+  count=s.particleCount||count;
+  maxDist=s.maxDistance||maxDist;
+  speed=s.particleSpeed||speed;
+
+  if(s.backgroundImage){
+    document.body.style.backgroundImage=`url(${s.backgroundImage})`;
+    document.body.style.backgroundSize="cover";
+    document.body.style.backgroundRepeat="no-repeat";
+  } else {
+    document.body.style.backgroundImage="";
+  }
+  init();
+});
+
+function animate(){
+  ctx.fillStyle=bg;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  for(let i=0;i<parts.length;i++){
+    for(let j=i+1;j<parts.length;j++){
+      const dx=parts[i].x - parts[j].x;
+      const dy=parts[i].y - parts[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<maxDist){
+        ctx.strokeStyle=pColor+"55";
+        ctx.beginPath();
+        ctx.moveTo(parts[i].x,parts[i].y);
+        ctx.lineTo(parts[j].x,parts[j].y);
+        ctx.stroke();
       }
-      for(let i=0;i<particles.length;i++){
-          for(let j=i+1;j<particles.length;j++){
-              const dx=particles[i].x-particles[j].x;
-              const dy=particles[i].y-particles[j].y;
-              const dist=Math.sqrt(dx*dx+dy*dy);
-              if(dist<100){ ctx.beginPath(); ctx.strokeStyle=`rgba(255,0,0,${1-dist/100})`; ctx.lineWidth=1; ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.stroke();}
-          }
-      }
-      requestAnimationFrame(animate);
-  }
-  animate();
-  window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
-
-  // Load saved data
-  function loadData(){
-    const data=JSON.parse(localStorage.getItem('theKingData')||'{}');
-    // Buttons
-    if(data.apkName) document.getElementById('apkBtn').innerText=data.apkName; 
-    if(data.apkLink) document.getElementById('apkBtn').onclick=()=>window.open(data.apkLink,'_blank');
-
-    if(data.xapkName) document.getElementById('xapkBtn').innerText=data.xapkName; 
-    if(data.xapkLink) document.getElementById('xapkBtn').onclick=()=>window.open(data.xapkLink,'_blank');
-
-    if(data.obbName) document.getElementById('obbBtn').innerText=data.obbName; 
-    if(data.obbLink) document.getElementById('obbBtn').onclick=()=>window.open(data.obbLink,'_blank');
-
-    if(data.genName) document.getElementById('genBtn').innerText=data.genName; 
-    if(data.genLink) document.getElementById('genBtn').onclick=()=>window.open(data.genLink,'_blank');
-
-    // Socials
-    if(data.tgName) document.getElementById('tgBtn').innerText=data.tgName;
-    if(data.tgLink) document.getElementById('tgBtn').href=data.tgLink;
-
-    if(data.ytName) document.getElementById('ytBtn').innerText=data.ytName;
-    if(data.ytLink) document.getElementById('ytBtn').href=data.ytLink;
-
-    if(data.instaName) document.getElementById('instaBtn').innerText=data.instaName;
-    if(data.instaLink) document.getElementById('instaBtn').href=data.instaLink;
+    }
   }
 
-  window.onload=loadData;
+  for(let p of parts){
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=pColor;
+    ctx.fill();
+    p.x+=p.dx; p.y+=p.dy;
+
+    if(p.x<0||p.x>canvas.width) p.dx*=-1;
+    if(p.y<0||p.y>canvas.height) p.dy*=-1;
+  }
+  requestAnimationFrame(animate);
+}
+init(); animate();
 </script>
 
 </body>
