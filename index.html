@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>THE KING CHEAT OFC - USER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {margin:0;background:#000;font-family:'Orbitron',sans-serif;color:#fff;text-align:center;overflow:hidden;}
+  .logo-container{position:relative;display:inline-block;margin-top:50px;z-index:2;}
+  .logo-circle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:180px;height:180px;border-radius:50%;border:4px solid red;z-index:2;}
+  .logo{width:150px;height:150px;border-radius:50%;object-fit:cover;box-shadow:0 0 20px red,0 0 40px red;position:relative;z-index:3;}
+  .title{font-size:36px;margin-top:20px;font-weight:bold;background:linear-gradient(90deg,#ff0000,#ff4d4d,#ff9999);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:3;}
+  .btn{display:block;width:80%;max-width:300px;margin:10px auto;padding:12px;font-size:18px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;background:red;color:#fff;box-shadow:0 0 15px red;transition:0.3s;position:relative;z-index:3;}
+  .btn:hover{box-shadow:0 0 20px red;}
+  .footer{margin:20px;font-size:12px;color:#fff;position:relative;z-index:3;}
+  .socials{margin-top:20px;display:flex;justify-content:center;gap:20px;z-index:3;position:relative;}
+  .socials a{text-decoration:none;color:#fff;font-weight:bold;padding:8px 12px;border:2px solid red;border-radius:10px;transition:0.3s;display:flex;align-items:center;gap:8px;font-size:14px;}
+  .socials a:hover{background:red;color:#fff;}
+  .socials img{width:20px;height:20px;}
+  #particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;}
+</style>
+</head>
+<body>
+
+<canvas id="particleCanvas"></canvas>
+
+<div class="logo-container">
+  <div class="logo-circle"></div>
+  <img src="https://i.supaimg.com/47f05d01-8673-49a2-9488-cfb90c34347b.jpg" class="logo">
+</div>
+<h1 class="title">THE KING CHEAT OFC</h1>
+
+<!-- Buttons -->
+<button class="btn" id="apkBtn">THE KING CHEAT V167 APK</button>
+<button class="btn" id="xapkBtn">THE KING CHEAT V167 XAPK</button>
+<button class="btn" id="obbBtn">OBB 931</button>
+<button class="btn" id="genBtn">GENERATE KEY</button>
+
+<div class="footer">© 2025 THE KING CHEATS | All Rights Reserved</div>
+
+<!-- Social Links -->
+<div class="socials">
+  <a id="tgBtn" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png"> Telegram</a>
+  <a id="ytBtn" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"> YouTube</a>
+  <a id="instaBtn" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png"> Instagram</a>
+</div>
+
+<script>
+  // Particle Animation
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  const particleCount = 120;
+  for(let i=0;i<particleCount;i++){
+      particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*1.5,vy:(Math.random()-0.5)*1.5,size:Math.random()*3+1});
+  }
+
+  function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(let i=0;i<particles.length;i++){
+          const p=particles[i]; p.x+=p.vx; p.y+=p.vy;
+          if(p.x<0||p.x>canvas.width) p.vx*=-1;
+          if(p.y<0||p.y>canvas.height) p.vy*=-1;
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fillStyle="red"; ctx.fill();
+      }
+      for(let i=0;i<particles.length;i++){
+          for(let j=i+1;j<particles.length;j++){
+              const dx=particles[i].x-particles[j].x;
+              const dy=particles[i].y-particles[j].y;
+              const dist=Math.sqrt(dx*dx+dy*dy);
+              if(dist<100){ ctx.beginPath(); ctx.strokeStyle=`rgba(255,0,0,${1-dist/100})`; ctx.lineWidth=1; ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.stroke();}
+          }
+      }
+      requestAnimationFrame(animate);
+  }
+  animate();
+  window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+
+  // Load saved data
+  function loadData(){
+    const data=JSON.parse(localStorage.getItem('theKingData')||'{}');
+    // Buttons
+    if(data.apkName) document.getElementById('apkBtn').innerText=data.apkName; 
+    if(data.apkLink) document.getElementById('apkBtn').onclick=()=>window.open(data.apkLink,'_blank');
+
+    if(data.xapkName) document.getElementById('xapkBtn').innerText=data.xapkName; 
+    if(data.xapkLink) document.getElementById('xapkBtn').onclick=()=>window.open(data.xapkLink,'_blank');
+
+    if(data.obbName) document.getElementById('obbBtn').innerText=data.obbName; 
+    if(data.obbLink) document.getElementById('obbBtn').onclick=()=>window.open(data.obbLink,'_blank');
+
+    if(data.genName) document.getElementById('genBtn').innerText=data.genName; 
+    if(data.genLink) document.getElementById('genBtn').onclick=()=>window.open(data.genLink,'_blank');
+
+    // Socials
+    if(data.tgName) document.getElementById('tgBtn').innerText=data.tgName;
+    if(data.tgLink) document.getElementById('tgBtn').href=data.tgLink;
+
+    if(data.ytName) document.getElementById('ytBtn').innerText=data.ytName;
+    if(data.ytLink) document.getElementById('ytBtn').href=data.ytLink;
+
+    if(data.instaName) document.getElementById('instaBtn').innerText=data.instaName;
+    if(data.instaLink) document.getElementById('instaBtn').href=data.instaLink;
+  }
+
+  window.onload=loadData;
+</script>
+
+</body>
+</html>
